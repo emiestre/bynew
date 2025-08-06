@@ -1,16 +1,140 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle,Hourglass } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle, Hourglass, ChevronDown } from 'lucide-react';
+
+// Import services data from Services.tsx
+const getServicesData = () => {
+  return [
+    {
+      title: 'Device Repair',
+      components: [
+        { id: 'micro-soldering', name: 'Micro Soldering', description: 'Logic board and FPC connector repair' },
+        { id: 'backlight-repair', name: 'Backlight Circuit Repair', description: 'Screen backlight troubleshooting' },
+        { id: 'laptop-repair', name: 'Laptop Repair', description: 'Complete laptop diagnostics and repair' },
+        { id: 'phone-repair', name: 'Phone Repair', description: 'Screen, battery, and component replacement' },
+        { id: 'console-repair', name: 'Game Console Repair', description: 'PlayStation, Xbox, Nintendo repairs' },
+        { id: 'tablet-repair', name: 'Tablet Repair', description: 'Screen and component replacement' }
+      ]
+    },
+    {
+      title: 'Custom Software Development',
+      components: [
+        { id: 'web-app', name: 'Web Application', description: 'Custom web application development' },
+        { id: 'desktop-app', name: 'Desktop Application', description: 'Cross-platform desktop software' },
+        { id: 'api-development', name: 'API Development', description: 'RESTful API and microservices' },
+        { id: 'database-design', name: 'Database Design', description: 'Custom database architecture' },
+        { id: 'software-integration', name: 'Software Integration', description: 'Third-party system integration' }
+      ]
+    },
+    {
+      title: 'Mobile App Development',
+      components: [
+        { id: 'ios-app', name: 'iOS App Development', description: 'Native iOS application' },
+        { id: 'android-app', name: 'Android App Development', description: 'Native Android application' },
+        { id: 'cross-platform', name: 'Cross-Platform App', description: 'React Native or Flutter app' },
+        { id: 'app-maintenance', name: 'App Maintenance', description: 'Ongoing app support and updates' },
+        { id: 'app-store-optimization', name: 'App Store Optimization', description: 'ASO and publishing support' }
+      ]
+    },
+    {
+      title: 'Cloud Solutions',
+      components: [
+        { id: 'cloud-migration', name: 'Cloud Migration', description: 'Move existing systems to cloud' },
+        { id: 'cloud-setup', name: 'Cloud Infrastructure Setup', description: 'AWS, Azure, or GCP setup' },
+        { id: 'cloud-monitoring', name: 'Cloud Monitoring', description: '24/7 cloud infrastructure monitoring' },
+        { id: 'backup-solutions', name: 'Backup Solutions', description: 'Automated cloud backup systems' },
+        { id: 'load-balancing', name: 'Load Balancing', description: 'High availability configuration' }
+      ]
+    },
+    {
+      title: 'Data Recovery',
+      components: [
+        { id: 'hdd-recovery', name: 'Hard Drive Recovery', description: 'Mechanical and logical HDD recovery' },
+        { id: 'ssd-recovery', name: 'SSD Recovery', description: 'Solid state drive data recovery' },
+        { id: 'phone-data-recovery', name: 'Phone Data Recovery', description: 'Mobile device data extraction' },
+        { id: 'raid-recovery', name: 'RAID Recovery', description: 'RAID array reconstruction' },
+        { id: 'emergency-recovery', name: 'Emergency Recovery', description: '24-hour rush data recovery' }
+      ]
+    },
+    {
+      title: 'Cybersecurity',
+      components: [
+        { id: 'security-audit', name: 'Security Audit', description: 'Comprehensive security assessment' },
+        { id: 'penetration-testing', name: 'Penetration Testing', description: 'Ethical hacking and vulnerability testing' },
+        { id: 'firewall-setup', name: 'Firewall Configuration', description: 'Network firewall implementation' },
+        { id: 'security-training', name: 'Security Training', description: 'Employee security awareness training' },
+        { id: 'incident-response', name: 'Incident Response', description: 'Security incident handling plan' }
+      ]
+    },
+    {
+      title: 'Data Analytics',
+      components: [
+        { id: 'dashboard-development', name: 'Dashboard Development', description: 'Custom analytics dashboards' },
+        { id: 'data-visualization', name: 'Data Visualization', description: 'Interactive charts and reports' },
+        { id: 'business-intelligence', name: 'Business Intelligence', description: 'BI system implementation' },
+        { id: 'data-modeling', name: 'Data Modeling', description: 'Data warehouse design' },
+        { id: 'predictive-analytics', name: 'Predictive Analytics', description: 'Machine learning models' }
+      ]
+    },
+    {
+      title: 'Drone Repairs',
+      components: [
+        { id: 'motor-replacement', name: 'Motor Replacement', description: 'Drone motor repair and replacement' },
+        { id: 'flight-controller', name: 'Flight Controller Repair', description: 'FC diagnostics and repair' },
+        { id: 'gimbal-repair', name: 'Gimbal Repair', description: 'Camera gimbal stabilization repair' },
+        { id: 'battery-service', name: 'Battery Service', description: 'Battery testing and replacement' },
+        { id: 'firmware-update', name: 'Firmware Update', description: 'Drone firmware upgrade service' }
+      ]
+    },
+    {
+      title: 'Digital Marketing',
+      components: [
+        { id: 'seo-optimization', name: 'SEO Optimization', description: 'Search engine optimization campaign' },
+        { id: 'ppc-management', name: 'PPC Management', description: 'Google Ads and social media ads' },
+        { id: 'social-media', name: 'Social Media Marketing', description: 'Social media strategy and management' },
+        { id: 'content-creation', name: 'Content Creation', description: 'Blog posts, articles, and copywriting' },
+        { id: 'email-marketing', name: 'Email Marketing', description: 'Email campaign design and automation' }
+      ]
+    },
+    {
+      title: 'IT Support',
+      components: [
+        { id: 'helpdesk-support', name: 'Helpdesk Support', description: '24/7 remote IT support' },
+        { id: 'on-site-support', name: 'On-Site Support', description: 'Technical support at your location' },
+        { id: 'network-setup', name: 'Network Setup', description: 'Business network configuration' },
+        { id: 'system-monitoring', name: 'System Monitoring', description: 'Proactive system health monitoring' },
+        { id: 'software-installation', name: 'Software Installation', description: 'Software deployment and configuration' }
+      ]
+    },
+    {
+      title: 'Graphics Design',
+      components: [
+        { id: 'logo-design', name: 'Logo Design', description: 'Custom logo and brand identity' },
+        { id: 'business-cards', name: 'Business Cards', description: 'Professional business card design' },
+        { id: 'brochure-design', name: 'Brochure Design', description: 'Marketing brochure and flyer design' },
+        { id: 'web-graphics', name: 'Web Graphics', description: 'Website graphics and banners' },
+        { id: 'brand-package', name: 'Complete Brand Package', description: 'Full brand identity package' }
+      ]
+    }
+  ];
+};
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
+    component: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [showServiceDropdown, setShowServiceDropdown] = useState(false);
+  const [showComponentDropdown, setShowComponentDropdown] = useState(false);
+
+  const services = getServicesData();
+  const selectedService = services.find(service => service.title === formData.subject);
+  const availableComponents = selectedService ? selectedService.components : [];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +151,7 @@ const Contact = () => {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          subject: formData.subject,
+          subject: `${formData.subject}${formData.component ? ` - ${formData.component}` : ''}`,
           message: formData.message,
         }),
       });
@@ -36,7 +160,7 @@ const Contact = () => {
 
       if (response.ok && result.success) {
         setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({ name: '', email: '', subject: '', component: '', message: '' });
       } else {
         throw new Error(result.message || 'Failed to send email');
       }
@@ -55,6 +179,23 @@ const Contact = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleServiceSelect = (serviceTitle: string) => {
+    setFormData({
+      ...formData,
+      subject: serviceTitle,
+      component: '' // Reset component when service changes
+    });
+    setShowServiceDropdown(false);
+  };
+
+  const handleComponentSelect = (componentName: string) => {
+    setFormData({
+      ...formData,
+      component: componentName
+    });
+    setShowComponentDropdown(false);
   };
 
   const contactInfo = [
@@ -244,19 +385,102 @@ const Contact = () => {
                   transition={{ delay: 0.3 }}
                 >
                   <label htmlFor="subject" className="block text-gray-700 font-medium mb-2">
-                    Subject *
+                    Service *
                   </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
-                    required
-                    disabled={isSubmitting}
-                  />
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={() => setShowServiceDropdown(!showServiceDropdown)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-left bg-white flex items-center justify-between"
+                      disabled={isSubmitting}
+                    >
+                      <span className={formData.subject ? 'text-gray-900' : 'text-gray-500'}>
+                        {formData.subject || 'Select a service...'}
+                      </span>
+                      <ChevronDown 
+                        size={20} 
+                        className={`transition-transform duration-200 ${showServiceDropdown ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                    
+                    {showServiceDropdown && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                      >
+                        {services.map((service) => (
+                          <button
+                            key={service.title}
+                            type="button"
+                            onClick={() => handleServiceSelect(service.title)}
+                            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 last:border-b-0"
+                          >
+                            {service.title}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </div>
                 </motion.div>
+
+                {/* Component Selection - Only show if a service is selected */}
+                {formData.subject && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <label htmlFor="component" className="block text-gray-700 font-medium mb-2">
+                      Specific Component (Optional)
+                    </label>
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setShowComponentDropdown(!showComponentDropdown)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-left bg-white flex items-center justify-between"
+                        disabled={isSubmitting}
+                      >
+                        <span className={formData.component ? 'text-gray-900' : 'text-gray-500'}>
+                          {formData.component || 'Select a component...'}
+                        </span>
+                        <ChevronDown 
+                          size={20} 
+                          className={`transition-transform duration-200 ${showComponentDropdown ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                      
+                      {showComponentDropdown && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                        >
+                          <button
+                            type="button"
+                            onClick={() => handleComponentSelect('')}
+                            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 text-gray-500 italic"
+                          >
+                            No specific component
+                          </button>
+                          {availableComponents.map((component) => (
+                            <button
+                              key={component.id}
+                              type="button"
+                              onClick={() => handleComponentSelect(component.name)}
+                              className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 last:border-b-0"
+                            >
+                              <div>
+                                <div className="font-medium">{component.name}</div>
+                                <div className="text-sm text-gray-500">{component.description}</div>
+                              </div>
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
                 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
