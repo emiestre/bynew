@@ -260,11 +260,11 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Get In <span className="text-yellow-300">Touch</span>
+            className="bg-white rounded-xl shadow-2xl p-6 md:p-8 text-dark"
             </h2>
             <p className="mb-8 opacity-90 text-lg">
               Ready to start your next project with us? Send us a message and we'll get back to you within 24 hours.
-            </p>
+            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center">Send Us a Message</h3>
             
             <div className="space-y-6">
               {contactInfo.map((info, index) => (
@@ -335,7 +335,7 @@ const Contact = () => {
                 </motion.div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -351,7 +351,7 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                    className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                     required
                     disabled={isSubmitting}
                   />
@@ -372,7 +372,7 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                    className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                     required
                     disabled={isSubmitting}
                   />
@@ -391,14 +391,14 @@ const Contact = () => {
                     <button
                       type="button"
                       onClick={() => setShowServiceDropdown(!showServiceDropdown)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-left bg-white flex items-center justify-between"
+                      className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-left bg-white flex items-center justify-between"
                       disabled={isSubmitting}
                     >
-                      <span className={formData.subject ? 'text-gray-900' : 'text-gray-500'}>
+                      <span className={`truncate pr-2 ${formData.subject ? 'text-gray-900' : 'text-gray-500'}`}>
                         {formData.subject || 'Select a service...'}
                       </span>
                       <ChevronDown 
-                        size={20} 
+                        size={16} 
                         className={`transition-transform duration-200 ${showServiceDropdown ? 'rotate-180' : ''}`}
                       />
                     </button>
@@ -407,14 +407,14 @@ const Contact = () => {
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                        className="absolute z-20 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-48 md:max-h-60 overflow-y-auto"
                       >
                         {services.map((service) => (
                           <button
                             key={service.title}
                             type="button"
                             onClick={() => handleServiceSelect(service.title)}
-                            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 last:border-b-0"
+                            className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 last:border-b-0"
                           >
                             {service.title}
                           </button>
@@ -438,14 +438,14 @@ const Contact = () => {
                       <button
                         type="button"
                         onClick={() => setShowComponentDropdown(!showComponentDropdown)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-left bg-white flex items-center justify-between"
+                        className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-left bg-white flex items-center justify-between"
                         disabled={isSubmitting}
                       >
-                        <span className={formData.component ? 'text-gray-900' : 'text-gray-500'}>
+                        <span className={`truncate pr-2 ${formData.component ? 'text-gray-900' : 'text-gray-500'}`}>
                           {formData.component || 'Select a component...'}
                         </span>
                         <ChevronDown 
-                          size={20} 
+                          size={16} 
                           className={`transition-transform duration-200 ${showComponentDropdown ? 'rotate-180' : ''}`}
                         />
                       </button>
@@ -454,12 +454,12 @@ const Contact = () => {
                         <motion.div
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                          className="absolute z-20 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-48 md:max-h-60 overflow-y-auto"
                         >
                           <button
                             type="button"
                             onClick={() => handleComponentSelect('')}
-                            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 text-gray-500 italic"
+                            className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 text-gray-500 italic"
                           >
                             No specific component
                           </button>
@@ -468,11 +468,11 @@ const Contact = () => {
                               key={component.id}
                               type="button"
                               onClick={() => handleComponentSelect(component.name)}
-                              className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 last:border-b-0"
+                              className="w-full px-3 md:px-4 py-2 md:py-3 text-left hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 last:border-b-0"
                             >
                               <div>
-                                <div className="font-medium">{component.name}</div>
-                                <div className="text-sm text-gray-500">{component.description}</div>
+                                <div className="font-medium text-sm md:text-base">{component.name}</div>
+                                <div className="text-xs md:text-sm text-gray-500 mt-1">{component.description}</div>
                               </div>
                             </button>
                           ))}
@@ -496,8 +496,8 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 resize-none"
+                    rows={4}
+                    className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 resize-none"
                     required
                     disabled={isSubmitting}
                   />
@@ -505,7 +505,7 @@ const Contact = () => {
                 
                 <motion.button
                   type="submit"
-                  className={`w-full py-3 px-6 rounded-lg font-medium flex items-center justify-center transition-all duration-300 ${
+                  className={`w-full py-2 md:py-3 px-4 md:px-6 text-sm md:text-base rounded-lg font-medium flex items-center justify-center transition-all duration-300 ${
                     isSubmitting 
                       ? 'bg-gray-400 cursor-not-allowed' 
                       : 'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg'
@@ -521,7 +521,7 @@ const Contact = () => {
                   {isSubmitting ? (
                     <>
                       <motion.div
-                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
+                        className="w-4 h-4 md:w-5 md:h-5 border-2 border-white border-t-transparent rounded-full mr-2"
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       />
@@ -535,7 +535,7 @@ const Contact = () => {
                         animate={{ x: [0, 5, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                       >
-                        <Send size={20} />
+                        <Send size={16} className="md:w-5 md:h-5" />
                       </motion.div>
                     </>
                   )}
@@ -543,7 +543,7 @@ const Contact = () => {
               </form>
               
               <motion.p 
-                className="text-sm text-gray-500 mt-4 text-center"
+                className="text-xs md:text-sm text-gray-500 mt-3 md:mt-4 text-center"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}

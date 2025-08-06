@@ -551,7 +551,7 @@ const Services = () => {
           </p>
           {cart.length > 0 && (
             <div className="mt-6 md:mt-8 flex justify-center">
-              <div className="bg-white rounded-lg p-3 md:p-4 shadow-md border w-full max-w-md flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+              <div className="bg-white rounded-lg p-3 md:p-4 shadow-md border w-full max-w-md mx-4 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
                 <div className="flex items-center gap-2">
                   <ShoppingCart className="h-5 w-5" />
                   <span className="font-medium">{cart.length} items in cart</span>
@@ -570,7 +570,7 @@ const Services = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              className="bg-white rounded-xl p-6 md:p-8 shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer"
+              className="bg-white rounded-xl p-4 sm:p-6 md:p-8 shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ y: -10 }}
@@ -579,13 +579,13 @@ const Services = () => {
               onClick={() => setSelectedService(service)}
             >
               <motion.div 
-                className={`w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r ${service.color} rounded-lg flex items-center justify-center text-white mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300`}
+                className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-r ${service.color} rounded-lg flex items-center justify-center text-white mb-3 sm:mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300`}
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
               >
-                <service.icon size={28} className="md:size-32" />
+                <service.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
               </motion.div>
-              <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 group-hover:text-slate-900 transition-colors duration-300">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 group-hover:text-slate-900 transition-colors duration-300">
                 {service.title}
               </h3>
               <p className="text-gray-600 text-sm md:text-base">{service.description}</p>
@@ -603,7 +603,7 @@ const Services = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {selectedService?.icon && <selectedService.icon className="h-7 w-7 md:h-8 md:w-8" />}
+              {selectedService?.icon && <selectedService.icon className="h-6 w-6 md:h-8 md:w-8" />}
               {selectedService?.title}
             </DialogTitle>
             <button 
@@ -629,7 +629,7 @@ const Services = () => {
                           <p className="text-xs md:text-sm text-gray-600">{component.description}</p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
                         {cartItem ? (
                           <div className="flex items-center gap-2">
                             <Button
@@ -639,7 +639,7 @@ const Services = () => {
                             >
                               <Minus className="h-4 w-4" />
                             </Button>
-                            <span className="w-8 text-center font-medium">{cartItem.quantity}</span>
+                            <span className="w-6 sm:w-8 text-center font-medium text-sm">{cartItem.quantity}</span>
                             <Button
                               variant="outline"
                               size="sm"
@@ -662,6 +662,7 @@ const Services = () => {
                             variant="destructive"
                             size="sm"
                             onClick={() => removeFromCart(component.id)}
+                            className="mt-2 sm:mt-0"
                           >
                             Remove
                           </Button>
@@ -687,7 +688,7 @@ const Services = () => {
               <X className="h-4 w-4" />
             </button>
           </DialogHeader>
-          <form onSubmit={handleQuoteSubmit} className="space-y-6">
+          <form onSubmit={handleQuoteSubmit} className="space-y-4 md:space-y-6">
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0">
                 <h3 className="font-semibold text-base md:text-lg">Selected Services ({cart.length} items)</h3>
@@ -721,7 +722,7 @@ const Services = () => {
                     </div>
                   </div>
                   {editingItem === item.id ? (
-                    <div className="flex items-center gap-2 pt-2 border-t">
+                    <div className="flex items-center gap-2 pt-2 border-t flex-wrap">
                       <Label>Quantity:</Label>
                       <Button
                         type="button"
@@ -731,7 +732,7 @@ const Services = () => {
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
-                      <span className="w-12 text-center font-medium">{item.quantity}</span>
+                      <span className="w-8 sm:w-12 text-center font-medium text-sm">{item.quantity}</span>
                       <Button
                         type="button"
                         variant="outline"
@@ -764,6 +765,7 @@ const Services = () => {
                   value={customerInfo.name}
                   onChange={(e) => setCustomerInfo({...customerInfo, name: e.target.value})}
                   required
+                  className="text-sm md:text-base"
                 />
               </div>
               <div>
@@ -774,6 +776,7 @@ const Services = () => {
                   value={customerInfo.email}
                   onChange={(e) => setCustomerInfo({...customerInfo, email: e.target.value})}
                   required
+                  className="text-sm md:text-base"
                 />
               </div>
             </div>
@@ -783,6 +786,7 @@ const Services = () => {
                 id="phone"
                 value={customerInfo.phone}
                 onChange={(e) => setCustomerInfo({...customerInfo, phone: e.target.value})}
+                className="text-sm md:text-base"
               />
             </div>
             <div>
@@ -792,7 +796,8 @@ const Services = () => {
                 placeholder="Please describe any specific requirements or questions..."
                 value={customerInfo.message}
                 onChange={(e) => setCustomerInfo({...customerInfo, message: e.target.value})}
-                rows={4}
+                rows={3}
+                className="text-sm md:text-base"
               />
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
