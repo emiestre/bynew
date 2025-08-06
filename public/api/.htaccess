@@ -1,0 +1,17 @@
+# Allow PHP files to be executed
+<Files "send-email.php">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# Set proper MIME type for PHP files
+<IfModule mod_mime.c>
+    AddType application/x-httpd-php .php
+</IfModule>
+
+# Enable CORS for API endpoints
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS, DELETE, PUT"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+</IfModule>
